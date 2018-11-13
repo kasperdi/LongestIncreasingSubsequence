@@ -5,68 +5,37 @@ public class LongestIncreasingSubsequence {
     public ArrayList<Integer> longestIncreasingSubsequence(ArrayList<Integer> input) {
 
         ArrayList<Integer> result = new ArrayList<>();
-        ArrayList<IntegerWithLIS> intLISlist = new ArrayList<>(); //Initializes new ArrayList of LIS objects.
+        ArrayList<IntegerWithLIS> LISlist = new ArrayList<>(); //Initializes new ArrayList of LIS objects.
         int maxSoFar = 0;
 
         for(int i = 0; i < input.size(); i++) { //Generates ArrayList of LIS objects.
-            intLISlist.add(new IntegerWithLIS(input.get(i), 0));
+            LISlist.add(new IntegerWithLIS(input.get(i), 0));
         }
 
-        for(int i = 0; i < intLISlist.size(); i++) { //Sammenlign originalt tal...
-            for(int j = 0; j < intLISlist.size(); j++) { //...med j.
-                if(intLISlist.get(i).getNumber() > intLISlist.get(j).getNumber()) { //Er tallet højere end det tidligere tal.
-                    if(intLISlist.get(i).getLIS() <= intLISlist.get(j).getLIS()) { //Hvis LIS ikke er sat korrekt.
-                        intLISlist.get(i).setLIS(intLISlist.get(j).getLIS()+1); //Opdater LIS
+        for(int i = 0; i < LISlist.size(); i++) { //Sammenlign originalt tal...
+            for(int j = 0; j < LISlist.size(); j++) { //...med j.
+                if(LISlist.get(i).getNumber() > LISlist.get(j).getNumber()) { //Er tallet højere end det tidligere tal.
+                    if(LISlist.get(i).getLIS() <= LISlist.get(j).getLIS()) { //Hvis LIS ikke er sat korrekt.
+                        LISlist.get(i).setLIS(LISlist.get(j).getLIS()+1); //Opdater LIS
 
-                        maxSoFar = Math.max(maxSoFar, intLISlist.get(i).getLIS()); //Gem max LIS
+                        maxSoFar = Math.max(maxSoFar, LISlist.get(i).getLIS()); //Gem max LIS
                     }
                 }
-                else if(intLISlist.get(i).getLIS() == 0) { //Hvis der ikke er nogle lavere tal før.
-                    intLISlist.get(i).setLIS(1); //Sæt LIS til 1 for dette tal
+                else if(LISlist.get(i).getLIS() == 0) { //Hvis der ikke er nogle lavere tal før.
+                    LISlist.get(i).setLIS(1); //Sæt LIS til 1 for dette tal
                 }
             }
         }
 
         //Get output list
-        for(int i = intLISlist.size()-1; i >= 0; i--) { //Gennemløb bagfra
-            if(intLISlist.get(i).getLIS() == maxSoFar) {
-                result.add(intLISlist.get(i).getNumber());
+        for(int i = LISlist.size()-1; i >= 0; i--) { //Gennemløb bagfra
+            if(LISlist.get(i).getLIS() == maxSoFar) {
+                result.add(LISlist.get(i).getNumber());
                 maxSoFar--;
             }
 
         }
-
         Collections.reverse(result);
-
-
-        /**
-         * Print statements
-         */
-        System.out.println();
-        System.out.println("Input");
-        for(Integer i : input) {
-            System.out.print(i);
-            System.out.print(" ");
-        }
-        System.out.println();
-        System.out.println("Output");
-        for(IntegerWithLIS r : intLISlist) {
-            System.out.print(r);
-            System.out.print(" ");
-        }
-        System.out.println();
-
-
-
-        // Implement your code here to compute
-        // the longest increasing subsequence of the input!
-        // You can use the following code to insert a dummy "-infinity" element:
-        //input.add(0, Integer.MIN_VALUE);
-        // Remember to not include -infinity in the result list!
-
-        // After backtracking, you can use Collections.reverse()
-        // to reverse the result in O(n) time:
-        //Collections.reverse(result);
 
         return result;
     }
