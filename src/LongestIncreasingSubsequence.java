@@ -26,7 +26,7 @@ public class LongestIncreasingSubsequence {
 
                     if(LISlist.get(i).getLIS() <= LISlist.get(j).getLIS()) { //If LIS is not set correctly.
 
-                        LISlist.get(i).setLIS(LISlist.get(j).getLIS()+1); //Opdate LIS.
+                        LISlist.get(i).setLIS(LISlist.get(j).getLIS()+1); //Update LIS.
                         maxSoFar = Math.max(maxSoFar, LISlist.get(i).getLIS()); //Save max LIS.
                     }
                 }
